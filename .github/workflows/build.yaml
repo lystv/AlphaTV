@@ -2,14 +2,14 @@ name: Test
 
 on:
   schedule:
-    - cron: 45 0/4 * * *
+    - cron: 45 0 8 8 *
   workflow_dispatch:
 
 
 env:
   userName: FongMi
   repoName: TV
-  branchName: main
+  branchName: release
   appName: AlphaTV
 
 jobs:
@@ -41,7 +41,9 @@ jobs:
         run: |
           git clone ${{ env.upStream }} ${{ env.repoName }}
           cd ${{ env.repoName }}
+          rm release/*.apk
           git checkout ${{ env.commit }}
+          
           #zip
           zip -q -x ".git/*" -r ${{ env.commitS }}-source.zip .
           #tag
